@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <main class="container">
+        <h1>Cadastro IMC</h1>
+        {% bootstrap_messages %}
+        <form action="{% url 'cadastro_imc'%}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Calcular IMC</button>
+            {% endbuttons %}
+        </form>
+        <h2>IMC: {{ imc }}</h2>
+    </main>
+</body>
+</html>
