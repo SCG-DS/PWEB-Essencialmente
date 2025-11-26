@@ -1,0 +1,259 @@
+body, html, main, section, footer{
+    box-sizing: border-box;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+*{
+    box-sizing: border-box;
+    font-family:"Josefin Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    height: min-content;
+    width: min-content;
+    color: #666363;
+}
+
+header {
+    background-color: #CBF9BC;
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 140px;
+    padding-right: 140px;
+    height: 140px;
+
+    /* border-bottom: 5px solid black; */
+    
+}
+
+header figure img {
+    height: 100px;
+}
+
+nav{
+    display: flex;
+    width: 59%;
+}
+
+ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+}
+
+li{
+    font-size: 30px;
+    
+
+    text-decoration: none;
+    list-style-type: none;
+}
+main, section {
+    box-sizing: border-box;
+    height: 800px;
+    
+}
+main {
+    padding: 80px 140px;
+    background-color: #EBFDE5;
+
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+main figure {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+main figure div{
+    width: 50%;
+    align-items: center;
+}
+
+main figure div h1 {
+    width: 100%;
+    font-size: 50px;
+    font-weight: 400;
+}
+
+main figure div button {
+    box-sizing: border-box;
+    padding: 20px 40px;
+    width: 40%;
+
+    margin-top: 30px;
+}
+
+#cards figure {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 70px auto 1fr;
+    align-items: center;
+    justify-content: center;
+}
+
+#cards img {
+    height: 80%;
+    width: auto;
+    margin: 0 auto;
+}
+
+#cards button,
+#cards a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #258E00;
+  color: white;
+  font-size: 30px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 70px;
+  padding: 20px 60px;
+  border-radius: 15px;
+  border-style: none;
+}
+
+main figure img {
+    width: 80%;
+    overflow: hidden;
+}
+
+section {
+    height: 1100px;
+    padding: 40px 140px;
+    /* display: flex;
+    justify-content: center; */
+    
+    align-items: center;
+    background-color: white;
+    align-content: center;
+}
+
+section h1 {
+    box-sizing: content-box;
+    width: 100%;
+    
+
+    font-size: 70px;
+    font-weight: normal;
+    text-align: center;
+
+}
+
+section div {
+    margin-top: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    height: max-content;
+}
+
+section div figure {
+    display: inline;
+    
+    
+    text-align: center;
+    
+    height: 660px;
+    width: 535px;
+    padding-top: 30px;
+    padding-right: 25px;
+    padding-left: 25px;
+    
+    border-radius: 20px;
+    border-color: #EBFDE5;
+    border-width: 7px;
+    border-style: solid;
+}
+section figure img {
+    position: relative;
+    height: 80%;
+    margin: auto 0;
+}
+
+section figure h2 {
+    width: 100%;
+    color: #258E00;
+    font-size:xx-large;
+    font-weight: bold;
+
+    margin-bottom: 30px;
+}
+section figure p {
+    width: 100%;
+    font-size: large;
+}
+
+section figure button {
+    margin-top: 70px;
+    padding: 20px 60px;
+}
+
+footer {
+    background-color: #CBF9BC;
+    height: 525px;
+
+    padding: 100px 180px;
+
+    display: flex;
+    justify-content: space-between;
+
+}
+
+footer h2 {
+    width: 100%;
+    font-size: 45px;
+    margin-bottom: 60px;
+}
+
+footer h3 {
+    font-size: x-large;
+}
+
+footer div {
+    width: 535px;
+}
+footer figure {
+    
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    
+}
+footer figure img {
+    width: 40px;
+    margin-right: 20px;
+}
+button {
+    background-color: #258E00;
+    color: white;
+    font-size: 30px;
+    font-weight: normal;
+    text-align: center;
+    align-items: center;
+
+    padding: 20px 40px;
+
+    border-radius: 15px;
+    border-style: none;
+    
+}
