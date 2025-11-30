@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="../static/style.css">
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet"/>
@@ -15,76 +15,127 @@
     {% bootstrap_javascript %}
     <title>Home</title>
 </head>
-<body>
-    <header>
-        <figure>
-            <img src="../static/ArquivosProj/logo.png" alt="Logo">
-        </figure>
-        <nav>
-            <ul>
-                <li>Avaliações</li>
-                <li>Relatórios</li>
-                <li>Normas Avaliação</li>
-                <li>Sobre</li>
-                <button>Entrar</button>  
-            </ul>
-            
-        </nav>
-    </header>
-    <main>
-        <figure>
-            <div>
-                <h1>O acompanhamento de crianças e adolescentes com foco no seu bem-estar!</h1>
-                <button>Saiba mais</button>
-            </div>
-            <img src="../static/ArquivosProj/img-main.png" alt="imgMain">
-        </figure>
-    </main>
-    <section>
-        <h1>Avaliações</h1>
-        
-        <div id="cards">
-            <figure>
-                <img src="../static/ArquivosProj2/img_card1.png" alt="">
-                <h2>Avaliação da Antropometria e Composição Corporal</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit facilis architecto odit assumenda ab? Ipsum accusamus laboriosam, unde iure quae porro accusantium voluptates quam, id non laudantium provident beatae voluptatum?</p>
-                <button>Avaliar</button>
-            </figure>
-            <figure>
-                <img src="../static/ArquivosProj2/img_card2.png" alt="">
-                <h2>Avaliação IMC</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non suscipit facilis exercitationem quasi repudiandae nisi accusantium molestiae laudantium rerum amet voluptates et animi, rem, cumque repellat fugit itaque ab tenetur?</p>
-                <a>Avaliar</a>
-            </figure>
-            <figure>
-                <img src="../static/ArquivosProj2/img_card3.png" alt="">
-                <h2>Avaliação Abdominais</h2>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus beatae dolore tempore est officiis similique accusamus, labore voluptas recusandae doloribus voluptatibus? Et dicta nobis, nam quisquam voluptas vero laudantium tempora.</p>
-                <button>Avaliar</button>
-            </figure>
-        </div>
-    </section>
-    <footer>
-        <div>
-            <h2>Contato</h2>
-            <figure>
-                <img src="../static/ArquivosProj3/icon-email.png" alt="">
-                <h3>essencialmente@email.com</h3>
-            </figure>
-            <figure>
-                <img src="../static/ArquivosProj3/icon-home.png" alt="">
-                <h3>Rua La Salle, 56 Xanxerê - SC</h3>
-            </figure>
-        </div>
+<body style="font-family:'Josefin Sans', sans-serif; 
+    font-weight: bold;">
+<header>
+    <nav class="navbar navbar-expand-lg px-5 py-3" style="background-color: #CBF9BC;">
+        <div class="container">
+            <a class="p-0" href="#">
+                <img src="../static/ArquivosProj/logo.png"  class="" alt="Logo" height="80px">
+            </a>
 
-        <div>
-            <h2>Redes Sociais</h2>
-            <figure>
-                <img src="../static/ArquivosProj3/icon-insta.png" alt="">
-                <img src="../static/ArquivosProj3/icon-whats.png" alt="">
-                <img src="../static/ArquivosProj3/icon-twitter.png" alt="">
-            </figure>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-3"><a class="nav-link fs-4 text-secondary" href="#">Avaliações</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link fs-4 text-secondary" href="#">Relatórios</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link fs-4 text-secondary" href="#">Normas Avaliação</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link fs-4 text-secondary" href="#">Sobre</a></li>
+                    <li><a class="btn btn-success btn-lg ms-5 fs-4 rounded-5     py-2 px-4 shadow-lg" style="background-color: #258E00; border-color: #258E00;">Entrar</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
+    </nav>
+</header>
+<main class="py-5 shadow-lg" style="background-color: #EBFDE5;">
+    <div class="container mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-4 align-items-center">
+                <h2 class="fw-normal text-secondary">O acompanhamento d'e crianças e adolescentes com foco no seu bem-estar!</h1>
+                <button class="btn btn-success btn-lg mt-2 rounded-5 px-5" style="background-color: #258E00; border-color: #258E00;"><span class="px-3">
+                    Saiba mais
+                </span>
+                </button>
+            </div>
+            <div class="col-lg text-center">
+                <img src="../static/ArquivosProj/img-main.png" alt="imgMain" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="pb-5">
+    <div class="container my-5">
+        <h1 class="text-center display-4 mb-5 pb-5 fw-normal text-secondary">Avaliações</h1>
+        
+        <div class="row row-cols-1 row-cols-md-3 g-5" id="cards">
+            <div class="col rounded">
+                <div class="card h-100 border-4 rounded text-center p-3 shadow" style="border-color: #D3E8CC;">
+                    <img src="../static/ArquivosProj2/img_card1.png" class="card-img-top w-50 mx-auto" alt="...">
+                    <div class="pb-5">
+                        <h2 class="card-title    text-success">Avaliação da Antropometria e Composição Corporal</h2>
+                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit facilis architecto odit assumenda ab? Ipsum accusamus laboriosam, unde iure quae porro accusantium voluptates quam, id non laudantium provident beatae voluptatum?</p>
+                    </div>
+                    <div class="card-footer border-0 bg-white">
+                        <button class="btn btn-success btn-lg px-5" style="background-color: #258E00; border-color: #258E00;">
+                            Avaliar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col rounded">
+                <div class="card h-100 border-4 rounded-4 text-center p-3 shadow" style="border-color: #D3E8CC;">
+                    <img src="../static/ArquivosProj2/img_card2.png" class="card-img-top w-50 mx-auto" alt="...">
+                    <div class="card-body">
+                        <h2 class="card-title text-success">Avaliação IMC</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non suscipit facilis exercitationem quasi repudiandae nisi accusantium molestiae laudantium rerum amet voluptates et animi, rem, cumque repellat fugit itaque ab tenetur?</p>
+                    </div>
+                    <div class="card-footer border-0 bg-white">
+                        <a href="#" class="btn btn-success btn-lg px-5" style="background-color: #258E00; border-color: #258E00;">
+                            Avaliar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col rounded">
+                <div class="card h-100 border-4 rounded-4 text-center p-3 shadow" style="border-color: #D3E8CC;">
+                    <img src="../static/ArquivosProj2/img_card3.png" class="card-img-top w-50 mx-auto" alt="...">
+                    <div class="card-body">
+                        <h2 class="card-title text-success">Avaliação Abdominais</h2>
+                        <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus beatae dolore tempore est officiis similique accusamus, labore voluptas recusandae doloribus voluptatibus? Et dicta nobis, nam quisquam voluptas vero laudantium tempora.</p>
+                    </div>
+                    <div class="card-footer border-0 bg-white">
+                        <button class="btn btn-success btn-lg px-5 rounded" style="background-color: #258E00; border-color: #258E00;">
+                            Avaliar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<footer class="bg-success-subtle text-body-secondary py-5" style="background-color: #CBF9BC;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2 class="fs-2 fw-normal mb-4">Contato</h2>
+                
+                <figure class="d-flex align-items-center mb-3">
+                    <img src="../static/ArquivosProj3/icon-email.png" alt="Ícone de Email" class="me-3" style="width: 40px; height: 40px;">
+                    <h3 class="fs-5 m-0">essencialmente@email.com</h3>
+                </figure>
+                
+                <figure class="d-flex align-items-center mb-0">
+                    <img src="../static/ArquivosProj3/icon-home.png" alt="Ícone de Casa" class="me-3" style="width: 40px; height: 40px;">
+                    <h3 class="fs-5 m-0">Rua La Salle, 56 Xanxerê - SC</h3>
+                </figure>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="fs-2 fw-normal mb-4">Redes Sociais</h2>
+                
+                <figure class="d-flex justify-content-start">
+                    <a href="#" class="me-3"><img src="../static/ArquivosProj3/icon-insta.png" alt="Instagram" style="width: 40px; height: 40px;"></a>
+                    
+                    <a href="#" class="me-3"><img src="../static/ArquivosProj3/icon-whats.png" alt="WhatsApp" style="width: 40px; height: 40px;"></a>
+                    
+                    <a href="#"><img src="../static/ArquivosProj3/icon-twitter.png" alt="Twitter" style="width: 40px; height: 40px;"></a>
+                </figure>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
