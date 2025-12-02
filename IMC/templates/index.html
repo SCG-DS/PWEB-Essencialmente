@@ -13,24 +13,29 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <title>Home</title>
+    <title>Essencialmente</title>
 </head>
-<body style="font-family:'Josefin Sans', sans-serif; 
-    font-weight: bold;">
-<header>
-    <nav class="navbar navbar-expand-lg px-5 py-3" style="background-color: #CBF9BC;">
-        <div class="container">
+<body style="font-family:'Josefin Sans', sans-serif; font-weight: bold;">
+<header style="background-color: #CBF9BC;">
+    <nav class="container navbar navbar-expand-xl px-0 py-3">
+        <div class="container-fluid d-flex m-0 align-items-center justify-content-between gap-2">
             <a class="p-0" href="#">
                 <img src="../static/ArquivosProj/logo.png"  class="" alt="Logo" height="80px">
             </a>
 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir navegação">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+            
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="align-items-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Avaliações</a></li>
-                    <li class="align-items-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Relatórios</a></li>
-                    <li class="align-items-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Normas Avaliação</a></li>
-                    <li class="align-items-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Sobre</a></li>
-                    <li><a class="btn btn-success btn-lg ms-5 fs-4 rounded-5     py-2 px-4 shadow-lg" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">Entrar</a></li>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mt-3 mt-xl-0">
+                    <li class="d-flex align-items-center justify-content-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Avaliações</a></li>
+                    <li class="d-flex align-items-center justify-content-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Relatórios</a></li>
+                    <li class="d-flex align-items-center justify-content-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Normas Avaliação</a></li>
+                    <li class="d-flex align-items-center justify-content-center nav-item mx-3"><a class="text-center nav-link fs-4 text-secondary" href="#">Sobre</a></li>
+                    <li class="d-flex align-items-center justify-content-center nav-item mx-3"><a class="btn btn-success btn-lg ms-0 ms-xl-5 fs-4 py-2 px-4 shadow-lg" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">Entrar</a></li>
                 </ul>
             </div>
         </div>
@@ -57,7 +62,7 @@
     <div class="container my-5">
         <h1 class="text-center display-4 mb-5 pb-5 fw-normal text-secondary">Avaliações</h1>
         
-        <div class="row row-cols-1 row-cols-md-3 g-5" id="cards">
+        <div class="justify-content-center row row-cols-1 row-cols-md-3 g-5" id="cards">
             <div class="col rounded">
                 <div class="card h-100 border-4 text-center p-3 shadow justify-content-between" style="border-color: #D3E8CC; border-radius: 0.8rem;">
                     <img src="../static/ArquivosProj2/img_card1.png" class="card-img-top w-50 mx-auto" alt="...">
@@ -66,7 +71,7 @@
                         <p class="card-text lh-1" style="font-size: 0.9rem;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit facilis architecto odit assumenda ab? Ipsum accusamus laboriosam, unde iure quae porro accusantium voluptates quam, id non laudantium provident beatae voluptatum?</p>
                     </div>
                     <div class="card-footer p-0 border-0 bg-white">
-                        <button class="btn btn-success btn-lg px-5" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">
+                        <button class="btn btn-success btn-lg px-5 shadow-lg" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">
                             Avaliar
                         </button>
                     </div>
@@ -96,7 +101,7 @@
                         <p class="card-text lh-1" style="font-size: 0.9rem;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus beatae dolore tempore est officiis similique accusamus, labore voluptas recusandae doloribus voluptatibus? Et dicta nobis, nam quisquam voluptas vero laudantium tempora.</p>
                     </div>
                     <div class="card-footer p-0 border-0 bg-white">
-                        <button class="btn btn-success btn-lg px-5" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">
+                        <button class="btn btn-success btn-lg px-5 shadow-lg" style="border-radius: 0.8rem; background-color: #258E00; border-color: #258E00;">
                             Avaliar
                         </button>
                     </div>
@@ -106,13 +111,13 @@
         </div>
     </div>
 </section>
-<footer class="bg-success-subtle text-body-secondary py-5" style="background-color: #CBF9BC;">
+<footer class="bg-success-subtle text-body-secondary pb-5" style="background-color: #CBF9BC;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 mb-4 mb-md-0">
+        <div class="row justify-content-between">
+            <div class="col-md-6 mb-4 mb-md-0 pt-5">
                 <h2 class="fs-2 text-secondary fw-normal mb-4">Contato</h2>
                 
-                <figure class="d-flex align-items-center mb-3">
+                <figure class="d-flex align-items-center mb-0 pb-3">
                     <img src="../static/ArquivosProj3/icon-email.png" alt="Ícone de Email" class="me-3 " style="width: auto; height: 1rem;">
                     <h3 class="text-secondary fs-5 m-0">essencialmente@email.com</h3>
                 </figure>
@@ -123,15 +128,15 @@
                 </figure>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4 pt-5">
                 <h2 class="fs-2 text-secondary fw-normal mb-4">Redes Sociais</h2>
                 
                 <figure class="container-flex d-flex gap-3">
-                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-insta.png" alt="Instagram" style="width: auto; height: 40px;"></a>
+                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-insta.png" alt="Instagram" style="width: auto; max-height: 60px;"></a>
                     
-                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-whats.png" alt="WhatsApp" style="width: auto; height: 40px;"></a>
+                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-whats.png" alt="WhatsApp" style="width: auto; max-height: 60px;"></a>
                     
-                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-twitter.png" alt="Twitter" style="width: auto; height: 40px;"></a>
+                    <a href="#" class="rounded img-fluid"><img src="../static/ArquivosProj3/icon-twitter.png" alt="Twitter" style="width: auto; max-height: 60px;"></a>
                 </figure>
             </div>
         </div>
