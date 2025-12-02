@@ -1,25 +1,621 @@
+{% load bootstrap5 %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% load bootstrap5 %}
+    <title>Avaliação IMC - Essencialmente</title>
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    <style>
+        body {
+            background-color: #EBFDE5;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        .main-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .calculadora-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 50px 60px;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: #258E00;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-divider {
+            border-bottom: 2px solid #EBFDE5;
+            margin: 35px 0;
+        }
+
+        /* Radio buttons customizados FODA */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            position: relative;
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 24px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666363;
+            background-color: #F5F5F5;
+            border: 3px solid #E0E0E0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        .radio-option label:hover {
+            border-color: #258E00;
+            background-color: #F0FFF0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 142, 0, 0.15);
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #258E00, #2ea805);
+            color: white;
+            border-color: #258E00;
+            box-shadow: 0 6px 20px rgba(37, 142, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .radio-option input[type="radio"]:checked + label::before {
+            content: '✓';
+            margin-right: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Estilo dos campos de input - PREMIUM */
+        .form-group {
+            margin-bottom: 32px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .form-group:focus-within label {
+            color: #258E00;
+            transform: translateX(4px);
+        }
+
+        .form-control,
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 1.1em;
+            border: 2px solid #E5E5E5;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            font-weight: 500;
+            color: #2c3e50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        .form-control:hover,
+        input[type="text"]:hover,
+        input[type="number"]:hover,
+        input[type="date"]:hover,
+        input[type="email"]:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #B8E6B3;
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(37, 142, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .form-control:focus,
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #258E00;
+            background: #ffffff;
+            box-shadow: 0 8px 24px rgba(37, 142, 0, 0.15), 0 0 0 4px rgba(37, 142, 0, 0.05);
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .form-control::placeholder,
+        input::placeholder,
+        textarea::placeholder {
+            color: #adb5bd;
+            font-weight: 400;
+            font-size: 0.95em;
+        }
+
+        /* Remove aparência padrão do Chrome em campos de data */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: opacity(0.6);
+            transition: filter 0.3s ease;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            filter: opacity(1);
+        }
+
+        /* Estilo para campos number */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+
+        /* Input de arquivo - PREMIUM */
+        .file-upload-area {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            border: 2px dashed #D5E8D4;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #f8fdf8 0%, #ffffff 100%);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .file-upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 142, 0, 0.03) 0%, rgba(37, 142, 0, 0.08) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .file-upload-area:hover::before {
+            opacity: 1;
+        }
+
+        .file-upload-area:hover {
+            border-color: #258E00;
+            border-width: 3px;
+            background: linear-gradient(145deg, #f0fff0 0%, #ffffff 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(37, 142, 0, 0.12);
+        }
+
+        .file-upload-icon {
+            font-size: 2.5em;
+            color: #258E00;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area:hover .file-upload-icon {
+            transform: scale(1.15) translateY(-4px);
+        }
+
+        .file-upload-text {
+            font-size: 1em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .file-upload-subtext {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        .form-control-file {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Validação visual sutil */
+        .form-control:valid:not(:placeholder-shown) {
+            border-color: #81C784;
+        }
+
+        .form-control:invalid:not(:placeholder-shown):not(:focus) {
+            border-color: #E57373;
+        }
+
+        /* Grid de campos */
+        .fields-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Botão principal */
+        .btn-calcular {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            font-weight: 600;
+            background-color: #258E00;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-calcular:hover {
+            background-color: #1f7500;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 142, 0, 0.3);
+        }
+
+        /* Caixa de resultado */
+        .resultado-box {
+            background: linear-gradient(135deg, #F0FFF0 0%, #E8F5E9 100%);
+            border-left: 6px solid #258E00;
+            border-radius: 15px;
+            padding: 35px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .resultado-label {
+            font-size: 1.1em;
+            color: #666363;
+            margin-bottom: 10px;
+        }
+
+        .imc-valor {
+            font-size: 4em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #258E00, #34C759);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+        }
+
+        .classificacao {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #258E00;
+            margin: 15px 0;
+        }
+
+        .orientacao-texto {
+            font-size: 1em;
+            color: #666363;
+            line-height: 1.6;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(37, 142, 0, 0.2);
+        }
+
+        /* Botões de navegação */
+        .navigation-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            padding: 14px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 12px;
+            border: 2px solid #258E00;
+            background-color: transparent;
+            color: #258E00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background-color: #258E00;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            padding: 14px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            background-color: #258E00;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-info:hover {
+            background-color: #1f7500;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 142, 0, 0.3);
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .calculadora-card {
+                padding: 30px 25px;
+            }
+
+            .fields-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 2em;
+            }
+
+            .imc-valor {
+                font-size: 3em;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .btn-secondary, .btn-info {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 20px 15px;
+            }
+
+            .calculadora-card {
+                padding: 25px 20px;
+            }
+
+            .page-title {
+                font-size: 1.7em;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .radio-option label {
+                padding: 14px 20px;
+                font-size: 1em;
+            }
+        }
+
+        /* Remove estilos do bootstrap que podem conflitar */
+        .form-check-inline {
+            margin-right: 0 !important;
+        }
+    </style>
 </head>
 <body>
-    <main class="container">
-        <h1>Cadastro IMC</h1>
-        {% bootstrap_messages %}
-        <form action="{% url 'cadastro_imc'%}" method="POST">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Calcular IMC</button>
-            {% endbuttons %}
-        </form>
-        <h2>IMC: {{ imc }}</h2>
-    </main>
+    <div class="main-container">
+        <h1 class="page-title">Calculadora de IMC</h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="calculadora-card">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Você é -->
+                <div class="form-group">
+                    <label>Você é:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="tipo_pessoa" id="adulto" value="adulto" checked>
+                            <label for="adulto">Adulto</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="tipo_pessoa" id="crianca" value="crianca">
+                            <label for="crianca">Criança</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Sexo -->
+                <div class="form-group">
+                    <label>{{ form.sexo.label }}:</label>
+                    <div class="radio-group">
+                        {% for choice in form.sexo.field.choices %}
+                            {% if choice.0 %}
+                                <div class="radio-option">
+                                    <input type="radio" name="{{ form.sexo.name }}" id="id_sexo_{{ forloop.counter }}" value="{{ choice.0 }}" {% if form.sexo.value == choice.0 %}checked{% endif %}>
+                                    <label for="id_sexo_{{ forloop.counter }}">{{ choice.1 }}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if form.sexo.errors %}
+                        <div class="text-danger small mt-2">{{ form.sexo.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Campos em grid -->
+                <div class="fields-grid">
+                    <div class="form-group">
+                        {{ form.peso.label_tag }}
+                        {{ form.peso }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.altura.label_tag }}
+                        {{ form.altura }}
+                    </div>
+                </div>
+
+                <div class="fields-grid">
+                    <div class="form-group">
+                        {{ form.cpf.label_tag }}
+                        {{ form.cpf }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.dataNascimento.label_tag }}
+                        {{ form.dataNascimento }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.nome.label_tag }}
+                    {{ form.nome }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.escola.label_tag }}
+                    {{ form.escola }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.foto.label_tag }}
+                    <div class="file-upload-area">
+                        <div class="file-upload-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <div class="file-upload-text">Clique para selecionar uma foto</div>
+                        <div class="file-upload-subtext">JPG, PNG ou GIF (máx. 5MB)</div>
+                        <input type="file" name="foto" id="id_foto" class="form-control-file" accept="image/*">
+                    </div>
+                    {% if form.foto.errors %}
+                        <div class="text-danger small mt-2">{{ form.foto.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-calcular">Calcular</button>
+            </form>
+        </div>
+
+        {% if imc and classificacao %}
+            <div class="resultado-box">
+                <p class="resultado-label">Seu IMC é:</p>
+                <p class="imc-valor">{{ imc|floatformat:2 }}</p>
+                <p class="classificacao">{{ classificacao }}</p>
+                
+                <div class="orientacao-texto">
+                    {% if classificacao == 'Normal' %}
+                        Que bom que você está com o peso normal! Continue mantendo um estilo de vida ativo e uma alimentação equilibrada.
+                    {% elif classificacao == 'Sobrepeso' %}
+                        Pré-obesidade, importante rever hábitos e buscar ajuda antes de entrar na faixa de obesidade.
+                    {% elif 'Obesidade' in classificacao %}
+                        Sinal de alerta! Chegou a hora de se cuidar, mesmo que seus exames sejam normais. Busque acompanhamento profissional.
+                    {% elif classificacao == 'Abaixo do Normal' %}
+                        Procure um médico. Algumas pessoas podem estar enfrentando problemas como a desnutrição.
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="navigation-buttons">
+            <a href="{% url 'index' %}" class="btn-secondary">Voltar para Home</a>
+            <a href="{% url 'listar_imc' %}" class="btn-info">Ver Listagem de Cadastros</a>
+        </div>
+    </div>
+
+    {% bootstrap_javascript %}
 </body>
 </html>

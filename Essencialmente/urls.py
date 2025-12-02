@@ -16,10 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from IMC.views import index, Cadastro_IMC
+from IMC.views import index, Cadastro_IMC, Listar_CadastradosIMC 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    
+    path('', index, name='index'), 
+    
     path('imc/', Cadastro_IMC, name='cadastro_imc'),
-]
+    
+    path('listar/', Listar_CadastradosIMC, name='listar_imc'), 
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

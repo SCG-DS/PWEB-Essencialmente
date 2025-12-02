@@ -1,0 +1,536 @@
+{% load bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cadastrados IMC - Essencialmente</title>
+    {% bootstrap_css %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #EBFDE5 0%, #F0FFF0 100%);
+            font-family: 'Josefin Sans', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #258E00 0%, #2ea805 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(37, 142, 0, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.1em;
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filtro Premium */
+        .filter-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .filter-label {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select {
+            padding: 14px 20px;
+            font-size: 1.05em;
+            border: 2px solid #E5E5E5;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        .filter-select:hover {
+            border-color: #B8E6B3;
+            box-shadow: 0 4px 16px rgba(37, 142, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #258E00;
+            box-shadow: 0 0 0 4px rgba(37, 142, 0, 0.1);
+        }
+
+        /* Tabela Premium */
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table thead th {
+            background: linear-gradient(135deg, #258E00 0%, #2ea805 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px 15px;
+            border: none;
+            font-size: 0.9em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table tbody tr:hover {
+            background: linear-gradient(90deg, #F0FFF0 0%, #ffffff 100%);
+            transform: scale(1.01);
+            box-shadow: 0 4px 15px rgba(37, 142, 0, 0.08);
+        }
+
+        .table tbody td {
+            padding: 18px 15px;
+            vertical-align: middle;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Foto com efeito */
+        .foto-container {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .foto-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #E5E5E5;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .foto-container:hover .foto-thumb {
+            transform: scale(1.15);
+            border-color: #258E00;
+            box-shadow: 0 6px 20px rgba(37, 142, 0, 0.3);
+        }
+
+        .foto-container::after {
+            content: '🔍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 1.5em;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .foto-container:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Badges de classificação */
+        .badge-imc {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        .badge-normal {
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+            color: white;
+        }
+
+        .badge-sobrepeso {
+            background: linear-gradient(135deg, #FFD54F 0%, #FFC107 100%);
+            color: #333;
+        }
+
+        .badge-obesidade {
+            background: linear-gradient(135deg, #FF8A65 0%, #FF7043 100%);
+            color: white;
+        }
+
+        .badge-abaixo {
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            color: white;
+        }
+
+        /* Alert customizado */
+        .alert-custom {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 5px solid #FF9800;
+            border-radius: 12px;
+            padding: 25px;
+            color: #E65100;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.15);
+        }
+
+        /* Modal Premium */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #258E00 0%, #2ea805 100%);
+            color: white;
+            border: none;
+            padding: 25px 30px;
+        }
+
+        .modal-header h5 {
+            font-weight: 700;
+            font-size: 1.5em;
+        }
+
+        .modal-body {
+            padding: 40px;
+            background: #fafafa;
+        }
+
+        .modal-foto {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #258E00;
+            font-size: 1.1em;
+        }
+
+        /* Botões */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #258E00 0%, #2ea805 100%);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 142, 0, 0.2);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(37, 142, 0, 0.3);
+            background: linear-gradient(135deg, #1f7500 0%, #258E00 100%);
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            border: 2px solid #258E00;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #258E00;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary-custom:hover {
+            background: #258E00;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8em;
+            }
+
+            .table-card {
+                padding: 10px;
+            }
+
+            .table thead th,
+            .table tbody td {
+                padding: 12px 8px;
+                font-size: 0.85em;
+            }
+
+            .foto-thumb {
+                width: 45px;
+                height: 45px;
+            }
+
+            .filter-card {
+                padding: 20px;
+            }
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table tbody tr {
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        .table tbody tr:nth-child(2) { animation-delay: 0.1s; }
+        .table tbody tr:nth-child(3) { animation-delay: 0.15s; }
+        .table tbody tr:nth-child(4) { animation-delay: 0.2s; }
+        .table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="page-header">
+            <h1> Cadastros de Avaliação de IMC</h1>
+            <p>Visualize e gerencie todos os cadastros realizados</p>
+        </div>
+        
+        <!-- Filtro -->
+        <div class="filter-card">
+            <form method="get" class="d-flex align-items-center gap-3 flex-wrap">
+                <label for="id_sexo" class="filter-label mb-0">Filtrar por Sexo:</label>
+                <select name="sexo" id="id_sexo" class="filter-select flex-grow-1" onchange="this.form.submit()">
+                    <option value="TODOS" {% if not filtro_ativo or filtro_ativo == 'TODOS' %}selected{% endif %}> Todos</option>
+                    {% for codigo, descricao in opcoes_sexo %}
+                        <option value="{{ codigo }}" {% if filtro_ativo == codigo %}selected{% endif %}>{{ descricao }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        <!-- Tabela -->
+        {% if cadastros %}
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Sexo</th>
+                                <th>Altura</th>
+                                <th>Peso</th>
+                                <th>IMC</th>
+                                <th>Classificação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cadastro in cadastros %}
+                            <tr>
+                                <td>
+                                    <div class="foto-container" data-bs-toggle="modal" data-bs-target="#modalFoto{{ cadastro.cpf }}">
+                                        <img src="{{ cadastro.foto.thumb.url }}" alt="{{ cadastro.nome }}" class="foto-thumb">
+                                    </div>
+                                </td>
+                                <td><strong>{{ cadastro.nome }}</strong></td>
+                                <td>{{ cadastro.cpf }}</td>
+                                <td>{{ cadastro.get_sexo_display }}</td>
+                                <td>{{ cadastro.altura|floatformat:2 }} m</td>
+                                <td>{{ cadastro.peso|floatformat:2 }} kg</td>
+                                <td><strong style="color: #258E00; font-size: 1.1em;">{{ cadastro.imc|floatformat:2 }}</strong></td>
+                                <td>
+                                    {% if 'Normal' in cadastro.classificacao %}
+                                        <span class="badge-imc badge-normal">{{ cadastro.classificacao }}</span>
+                                    {% elif 'Sobrepeso' in cadastro.classificacao %}
+                                        <span class="badge-imc badge-sobrepeso">{{ cadastro.classificacao }}</span>
+                                    {% elif 'Obesidade' in cadastro.classificacao %}
+                                        <span class="badge-imc badge-obesidade">{{ cadastro.classificacao }}</span>
+                                    {% else %}
+                                        <span class="badge-imc badge-abaixo">{{ cadastro.classificacao }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <!-- Modal para cada cadastro -->
+                            <div class="modal fade" id="modalFoto{{ cadastro.cpf }}" tabindex="-1" aria-labelledby="modalLabel{{ cadastro.cpf }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel{{ cadastro.cpf }}"> Detalhes do Cadastro</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="text-center mb-4">
+                                                <img src="{{ cadastro.foto.url }}" alt="{{ cadastro.nome }}" class="modal-foto">
+                                            </div>
+                                            
+                                            <div class="info-row">
+                                                <span class="info-label">Nome Completo</span>
+                                                <span class="info-value">{{ cadastro.nome }}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">CPF</span>
+                                                <span class="info-value">{{ cadastro.cpf }}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Sexo</span>
+                                                <span class="info-value">{{ cadastro.get_sexo_display }}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Data de Nascimento</span>
+                                                <span class="info-value">{{ cadastro.dataNascimento|date:"d/m/Y" }}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Escola</span>
+                                                <span class="info-value">{{ cadastro.escola }}</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Altura</span>
+                                                <span class="info-value">{{ cadastro.altura|floatformat:2 }} m</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Peso</span>
+                                                <span class="info-value">{{ cadastro.peso|floatformat:2 }} kg</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">IMC Calculado</span>
+                                                <span class="info-value" style="font-size: 1.3em;">{{ cadastro.imc|floatformat:2 }}</span>
+                                            </div>
+                                            <div class="info-row" style="border-bottom: none;">
+                                                <span class="info-label">Classificação</span>
+                                                <span class="info-value">{{ cadastro.classificacao }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer" style="background: white; border: none; padding: 20px 30px;">
+                                            <button type="button" class="btn btn-secondary-custom" data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <p class="text-muted mb-0">Total de registros: <strong>{{ cadastros|length }}</strong></p>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert-custom text-center">
+                <h4 style="margin-bottom: 10px;"> Nenhum cadastro encontrado</h4>
+                {% if filtro_ativo and filtro_ativo != 'TODOS' %}
+                    <p class="mb-0">Não há cadastros para o sexo selecionado. Tente outro filtro.</p>
+                {% else %}
+                    <p class="mb-0">Ainda não há cadastros no sistema. Comece adicionando um novo cadastro!</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <!-- Botões de navegação -->
+        <div class="text-center mt-4">
+            <a href="{% url 'cadastro_imc' %}" class="btn btn-primary-custom"> Novo Cadastro</a>
+            <a href="{% url 'index' %}" class="btn btn-secondary-custom ms-2"> Voltar para Home</a>
+        </div>
+    </div>
+
+    {% bootstrap_javascript %}
+</body>
+</html>
